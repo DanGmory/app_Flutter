@@ -57,7 +57,7 @@ class PokemonCard extends StatelessWidget {
                   Text(
                     pokemon.formattedId,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
@@ -66,7 +66,7 @@ class PokemonCard extends StatelessWidget {
                     pokemon.capitalizedName,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ],
@@ -78,8 +78,8 @@ class PokemonCard extends StatelessWidget {
               Center(
                 child: CachedNetworkImage(
                   imageUrl: pokemon.imageUrl,
-                  height: 80,
-                  width: 80,
+                  height: 100,
+                  width: 100,
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) =>
