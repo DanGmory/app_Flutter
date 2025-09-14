@@ -14,10 +14,8 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Perfil de Usuario',
-        showbackButton: true,
-      ),
+      appBar:
+          const CustomAppBar(title: 'Perfil de Usuario', showBackButton: true),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -27,26 +25,29 @@ class UserScreen extends StatelessWidget {
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.blue,
-                child: Icon(Icons.person, size: 80, color: Colors.white),
+                child: Icon(Icons.person, size: 70, color: Colors.white),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    _buildInfoRow('Usuario', username),
-                    const SizedBox(height: 10),
-                    _buildInfoRow('Email', '$username@demo.com'),
-                    const SizedBox(height: 10),
-                    _buildInfoRow(
-                      'Contraseña',
-                      '${'*' * password.length} (${password.length} caracteres)',
-                    ),
+                    _buildInfoRow('Usuario:', username),
+                    const SizedBox(height: 15),
+                    _buildInfoRow('Email:', '$username@demo.com'),
+                    const SizedBox(height: 15),
+                    _buildInfoRow('Contraseña:',
+                        '${'*' * password.length} (${password.length} caracteres)'),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Editar Perfil'),
             ),
           ],
         ),
@@ -56,10 +57,16 @@ class UserScreen extends StatelessWidget {
 
   Widget _buildInfoRow(String label, String value) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text(value),
+        Text(
+          label,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 16),
+        ),
       ],
     );
   }

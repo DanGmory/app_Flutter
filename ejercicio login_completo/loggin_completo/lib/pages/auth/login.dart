@@ -3,6 +3,7 @@ import '../../widgets/app_bar.dart';
 import '../home/home.dart';
 import '../user/form.dart';
 
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.text = _registeredPassword ?? '';
   }
 
-  void _navigateToRegistration() async {
+  void _navigateToRegister() async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const UserFormScreen()),
@@ -39,10 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
         _passwordController.text = _registeredPassword ?? '';
       });
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration successful! Please log in.'),
-        ),
+        const SnackBar(content: Text('Usuario registrado exitosamente')),
       );
     }
   }
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/logo.png',
+                'assets/img/icons/logo.png',
                 height: 100,
               ),
               const SizedBox(height: 20),
@@ -84,16 +84,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _usernameController,
                 decoration: const InputDecoration(
                   labelText: 'Usuario',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.mail),
                 ),
                 validator: (value) {
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                   if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su usuario.';
-                  }
-                  if (_registeredUsername != null &&
-                      value != _registeredUsername) {
-                    return 'Usuario no encontrado. Por favor regístrese primero.';
+                    return 'Por favor ingrese su usuario';
+                  } else if (!emailRegex.hasMatch(value)) {
+                    return 'Por favor ingrese un correo electrónico válido';
                   }
                   return null;
                 },
@@ -104,27 +103,40 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(
                   labelText: 'Contraseña',
                   prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su contraseña.';
+                    return 'Por favor ingrese su contraseña';
+                  }
+                  if (value.length < 8 || value.length > 16) {
+                    return 'La contraseña debe tener entre 8 y 16 caracteres';
+                  }
+                  if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                    return 'La contraseña debe contener al menos una letra mayúscula';
+                  }
+                  if (!RegExp(r'[a-z]').hasMatch(value)) {
+                    return 'La contraseña debe contener al menos una letra minúscula';
+                  }
+                  if (!RegExp(r'[0-9]').hasMatch(value)) {
+                    return 'La contraseña debe contener al menos un número';
+                  }
+                  if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]')
+                      .hasMatch(value)) {
+                    return 'La contraseña debe contener al menos un carácter especial';
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _login,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                child: const Text('Iniciar Sesión'),
+                child: const Text('Ingresar'),
               ),
+              const SizedBox(height: 20),
               TextButton(
-                onPressed: _navigateToRegistration,
-                child: const Text('¿No tienes una cuenta? Regístrate'),
+                onPressed: _navigateToRegister,
+                child: const Text('¿No tienes cuenta? Regístrate aquí'),
               ),
             ],
           ),

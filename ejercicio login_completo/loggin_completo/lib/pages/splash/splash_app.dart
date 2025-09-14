@@ -55,19 +55,19 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/img/logos/logo.png',
-                height: 150,
+                'assets/img/icons/logo.png',
+                height: 100,
               ),
               const SizedBox(height: 20),
               const Text(
-                'Mi App Flutter',
+                'New Style App',
                 style: TextStyle(
                   fontSize: 24,
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               const CircularProgressIndicator(
                 color: Colors.white,
               ),
